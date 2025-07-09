@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-primary mb-4">Мои Посты</h1>
+    
+    <!-- Кнопка для вызова alert -->
+    <button id="alertButton" class="btn btn-success mb-3">Нажми меня</button>
+    
+    <!-- Вывод постов -->
+    {% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content }}</p>
+            <form action="{% url 'delete_post' post.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <p>Постов пока нет.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('alertButton').addEventListener('click', function() {
+    alert('Окак');
+});
+</script>
+{% endblock %}
